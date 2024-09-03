@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState } from "react";
 
 export default function PosterSection({ date, festivalData }) {
   /*Challenge
@@ -17,20 +17,27 @@ export default function PosterSection({ date, festivalData }) {
 
 		   
  */
+  const impDic = {
+    1: "giant",
+    2: "big",
+    3: "medium",
+    4: "small",
+  };
+
+  const filteredAndSorted = festivalData
+    .filter((band) => band.date === date)
+    .sort((x, y) => x.importance - y.importance);
 
   return (
-    <div className='lineup-container'>
-      <div className='day-container'>
+    <div className="lineup-container">
+      <div className="day-container">
         <h3>{date}</h3>
       </div>
-
-      <p className='giant'>Süper Büyük Önemli Grup</p>
-      <p className='giant'>Başka Biri</p>
-      <p className='big'>Biraz Daha Az Önemli Grup</p>
-      <p className='big'>Başka Biri</p>
-      <p className='medium'>Orta Dereceli Grup</p>
-      <p className='medium'>Başka Biri</p>
-      <p className='small'>O kadar da önemli olmayan bir grup</p>
+      {filteredAndSorted.map((band) => (
+        <p className={`${impDic[band.importance]}`} key={band.name}>
+          {band.name}
+        </p>
+      ))}
     </div>
-  )
+  );
 }
